@@ -61,14 +61,19 @@ public class Main {
 
         ResultSetMetaData metaData = results.getMetaData();
         int columnCount = metaData.getColumnCount();
-
+        for (int i = 1; i <= columnCount; i++) {
+            System.out.print(metaData.getColumnName(i) + " ");
+        }
+        System.out.print("\n");
         while(results.next()){
             for (int i = 1; i <= columnCount; i++) {
                 String columnName = metaData.getColumnName(i);
                 String value = results.getString(i);
-                System.out.println(i + ". " + columnName + ": " + value + " ");
+                System.out.print(columnName + ": " + value + " ");
+                if (i == columnCount) {
+                    System.out.print("\n");
+                }
             }
-            System.out.println();
         }
     }
 
@@ -144,6 +149,31 @@ public class Main {
         }
     }
 
+    public static void displayAllSuppliers(DataSource dataSource) {
 
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("""
+                     SELECT
+                        CompanyName,
+                        ContactName,
+                        Address,
+                        City,
+                        Region,
+                        Phone
+                     FROM
+                        Suppliers
+                     ORDER BY
+                        Region,
+                        City,
+                        CompanyName
+                     """);
+        ) {
+            ResultSet results = preparedStatement.executeQuery();
+            printResults(results);
+        } catch (SQLException e) {
+            System.out.println("Error: could not retrieve product information.");
+            System.exit(1);
+        }
+    }
 
 }
