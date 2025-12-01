@@ -94,6 +94,55 @@ public class Main {
         }
     }
 
+    public static void displayAllCustomers(DataSource dataSource) {
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("""
+                     SELECT
+                        ContactName,
+                        CompanyName,
+                        City,
+                        Country,
+                        Phone
+                     FROM
+                        Customers
+                     ORDER BY
+                        Country,
+                        City,
+                        ContactName
+                     """);
+        ) {
+            ResultSet results = preparedStatement.executeQuery();
+            printResults(results);
+        } catch (SQLException e) {
+            System.out.println("Error: could not retrieve customer information.");
+            System.exit(1);
+        }
+    }
+
+    public static void displayAllEmployees(DataSource dataSource) {
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("""
+                     SELECT
+                        FirstName,
+                        LastName,
+                        Title,
+                        Salary
+                     FROM
+                        Employees
+                     ORDER BY
+                        LastName,
+                        FirstName
+                     """);
+        ) {
+            ResultSet results = preparedStatement.executeQuery();
+            printResults(results);
+        } catch (SQLException e) {
+            System.out.println("Error: could not retrieve employee information.");
+            System.exit(1);
+        }
+    }
 
 
 
