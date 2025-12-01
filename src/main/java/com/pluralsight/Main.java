@@ -3,7 +3,6 @@ package com.pluralsight;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -89,8 +88,7 @@ public class Main {
                         Products
                      ORDER BY
                         ProductName
-                     """);
-        ) {
+                     """)) {
             ResultSet results = preparedStatement.executeQuery();
             printResults(results);
         } catch (SQLException e) {
@@ -115,8 +113,7 @@ public class Main {
                         Country,
                         City,
                         ContactName
-                     """);
-        ) {
+                     """)) {
             ResultSet results = preparedStatement.executeQuery();
             printResults(results);
         } catch (SQLException e) {
@@ -139,8 +136,7 @@ public class Main {
                      ORDER BY
                         LastName,
                         FirstName
-                     """);
-        ) {
+                     """)) {
             ResultSet results = preparedStatement.executeQuery();
             printResults(results);
         } catch (SQLException e) {
@@ -166,8 +162,7 @@ public class Main {
                         Region,
                         City,
                         CompanyName
-                     """);
-        ) {
+                     """)) {
             ResultSet results = preparedStatement.executeQuery();
             printResults(results);
         } catch (SQLException e) {
